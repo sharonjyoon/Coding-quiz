@@ -9,38 +9,40 @@ const counter = document.getElementById("counter");
 const timeGauge = document.getElementById("timeGauge");
 const progress = document.getElementById("progress");
 const scoreDiv = document.getElementById("highscore");
+const submit = document.getElementById("submit");
+const highTable = document.getElementById("highScores");
 
 // create questions
 let questions = [
   {
     question: "What does HTML stand for?",
-    choiceA: "Correct",
-    choiceB: "Wrong",
-    choiceC: "Wrong",
+    choiceA: "Hypertext Markup Language",
+    choiceB: "Hypertext Makeup Language",
+    choiceC: "Hypertext Memoization Language",
     correct: "A"
   }, {
-    question: "What does CSS stand for?",
-    choiceA: "Wrong",
-    choiceB: "Correct",
-    choiceC: "Wrong",
+    question: "Where should you place the link to an external CSS file in your HTML code?",
+    choiceA: "Inside the body tag",
+    choiceB: "Inside the head tag",
+    choiceC: "At the bottom of the body tag",
     correct: "B"
   }, {
-    question: "What does JS stand for?",
-    choiceA: "Wrong",
-    choiceB: "Wrong",
-    choiceC: "Correct",
+    question: "What does CSS stand for?",
+    choiceA: "Coordinated Style Sheets",
+    choiceB: "Classic Style Sheets",
+    choiceC: "Cascading Style Sheets",
     correct: "C"
   }, {
-    question: "What type of language is Javascript?",
-    choiceA: "Wrong",
-    choiceB: "Correct",
-    choiceC: "Wrong",
+    question: "What is a function?",
+    choiceA: "An algorithm that repeats itself.",
+    choiceB: "A self-contained reusable block of code.",
+    choiceC: "An object that contains key value pairs.",
     correct: "B"
   }, {
-    question: "What did Kirby eat for breakfast?",
-    choiceA: "Wrong",
-    choiceB: "Wrong",
-    choiceC: "Correct",
+    question: "What is a method in programming?",
+    choiceA: "A strict format of doing things.",
+    choiceB: "A way to write a specific program.",
+    choiceC: "A function which is a property of an object.",
     correct: "C"
   }
 ];
@@ -117,7 +119,7 @@ function checkAnswer(answer) {
     runningQuestion++;
     renderQuestion();
   } else {
-    // end the quiz and show the score
+    // end the quiz
     clearInterval(TIMER);
     scoreRender();
   }
@@ -127,7 +129,7 @@ function scoreRender() {
   quiz.style.display = "none";
   scoreDiv.style.display = "block";
 }
-
+//this ensures that the extraneous buttons are hidden after use
 const quizEnd = () => {
   scoreRender()
   clearInterval(TIMER)
@@ -138,27 +140,32 @@ const quizEnd = () => {
 }
 
 //input initials to save score 
-document.getElementById('submit').addEventListener(`click`, event => {
+submit.addEventListener(`click`, event => {
   let newScore = {
     time: score,
-    initials: document.getElementById(`newScore`).value
+    initials: document.getElementById(`first_name`).value
   }
-  console.log(newScore)
+  //This portion ensures that the scores and times are saved in local storage. Local storage requires us to use JSON to parse the information into strings easily. 
   if (localStorage.getItem(`scores`)) {
-    let scores = JSON.parse(localStorage.getItem(`scores`))
+    let scores = [];
+    scores = JSON.parse(localStorage.getItem(`scores`))
     scores.push(newScore)
-    localStorage.setItem(`scores`, scores)
+    localStorage.setItem("scores", JSON.stringify(scores));
   } else {
     let scores = [];
     scores.push(newScore)
-    localStorage.setItem(`scores`, JSON.stringify(scores))
+    localStorage.setItem("scores", JSON.stringify(scores));
   }
-  let scores = JSON.parse(localStorage.getItem(`scores`))
-  scores.forEach(score => {
-    document.getElementById(`scores`).innerHTML += `
-    ${scores.initials}
-    ${scores.time}
-    `
-  })
+  // invoke the function to show the high scores.
+  highscoreTable()
 })
-
+// function gets items from the local storage so we can display the scores on the website. Used innerHTML to simply display scores from javaScript
+function highscoreTable(){
+  scoreDiv.style.display = "none";
+  let scores = [];
+  scores = JSON.parse(localStorage.getItem(`scores`))
+  console.log(scores)
+  highTable.innerHTML = scores
+    .map((score) => `<li>${score.initials} - ${score.time}`)
+    .join('');
+  }
