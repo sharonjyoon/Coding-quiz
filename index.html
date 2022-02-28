@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<div lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Quiz</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<div>
+  <header>
+    <h1>Coding Quiz Challenge</h1>
+    <p>Please click the Start button to begin taking the quiz. The timer will begin and you will be given a series of multiple choice questions. If you answer incorrectly, time will be substracted from the clock. When all questions have been answered or time has run out, the game will be over. You will be able to save your initials and score.</p>
+  </header>
+  <div id="container">
+    <div id="start">Start Quiz!</div>
+    <div id="quiz" style="display: none">
+      <div id="question"></div>
+      <div id="qImg"></div>
+      <div id="choices">
+        <div class="choice" id="A" onclick="checkAnswer('A')"></div>
+        <div class="choice" id="B" onclick="checkAnswer('B')"></div>
+        <div class="choice" id="C" onclick="checkAnswer('C')"></div>
+      </div>
+      <div id="timer">
+        <div id="counter"></div>
+        <div id="btimeGauge"></div>
+        <div id="timeGauge"></div>
+      </div>
+      <div id="progress"></div>
+      <div id="scores"></div>
+    </div>
+    <div id="scoreContainer" style="display: none"></div>
+  </div>
+</div>
+<div id="highscore" style="display: none">
+  <div class="input-field col s6">
+    <label for="first_name">Enter your initials</label></div>
+    <input type="text"><a id="submit" class="waves-effect waves-light btn"> Submit</a>
+  </div>
+  
+</div>
+</div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
