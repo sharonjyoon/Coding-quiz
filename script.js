@@ -1,3 +1,4 @@
+//declare variables
 const start = document.getElementById("start");
 const quiz = document.getElementById("quiz");
 const question = document.getElementById("question");
@@ -99,7 +100,6 @@ function renderCounter() {
       runningQuestion++;
       renderQuestion();
     } else {
-      // end the quiz and show the score
       clearInterval(TIMER);
       scoreRender();
     }
